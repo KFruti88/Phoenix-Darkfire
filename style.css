@@ -1,9 +1,9 @@
 body, html {
     margin: 0;
     padding: 0;
-    width: 1920px; /* Standard Stream Resolution */
+    width: 1920px;
     height: 1080px;
-    background-color: transparent; /* Makes the middle see-through in OBS */
+    background-color: transparent; /* Allows game to show through in OBS */
     overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -14,50 +14,91 @@ body, html {
     height: 100%;
 }
 
-/* Header styling with the Blue Flame gradient */
 .top-banner {
-    height: 150px;
-    background: linear-gradient(to bottom, #043F98 0%, rgba(0,0,0,0.8) 100%);
+    height: 120px;
+    background: linear-gradient(to bottom, #043F98 0%, #000 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 3px solid #043F98;
-    box-shadow: 0 5px 15px rgba(4, 63, 152, 0.5);
 }
 
-.header-logo {
-    height: 120px;
-    /* Adds a white glow to the Phoenix outline to make it pop */
-    filter: drop-shadow(0 0 10px #ffffff);
+.header-logo { 
+    height: 100px; 
+    filter: drop-shadow(0 0 10px #043F98); 
 }
 
-/* Gameplay area - The transparent middle section */
-.gameplay-area {
+/* Middle Layout: Gameplay on Left, Chat on Right */
+.middle-container {
+    display: flex;
+    flex-direction: row;
     flex-grow: 1;
+}
+
+.gameplay-area {
+    flex: 3; /* Occupies 75% of width */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    border-right: 2px solid #043F98;
 }
 
 .viewport-border {
-    width: 95%; 
-    height: 85%;
-    /* Subtle blue frame around your console gameplay */
-    border: 2px solid rgba(4, 63, 152, 0.4);
-    pointer-events: none; 
+    width: 95%;
+    height: 90%;
+    border: 1px solid rgba(4, 63, 152, 0.3);
 }
 
-/* Footer styling for the Console Streaming text */
-.bottom-bar {
-    height: 50px;
-    background: rgba(0, 0, 0, 0.9);
-    color: #043F98;
+/* Chat Sidebar */
+.chat-sidebar {
+    flex: 1; /* Occupies 25% of width */
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    box-shadow: inset 5px 0 15px rgba(0,0,0,0.5);
+}
+
+.chat-header {
+    background: #043F98;
+    color: white;
+    text-align: center;
+    padding: 10px;
     font-weight: bold;
-    letter-spacing: 3px;
-    border-top: 2px solid #043F98;
-    text-shadow: 0 0 5px #043F98;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px #fff;
+}
+
+/* Ticker Animation */
+.bottom-bar {
+    height: 60px;
+    background: #000;
+    border-top: 3px solid #043F98;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-wrap { 
+    width: 100%; 
+    overflow: hidden; 
+}
+
+.ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+    color: #ffffff; /* White text for readability */
+    font-size: 1.2rem;
+    line-height: 60px;
+}
+
+.ticker-item {
+    margin-right: 80px;
+    font-weight: bold;
+    text-shadow: 0 0 8px #043F98; /* Blue glow on white text */
+}
+
+@keyframes ticker {
+    0% { transform: translate3d(100%, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
 }
