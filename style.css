@@ -3,53 +3,67 @@ body, html {
     padding: 0;
     width: 1920px;
     height: 1080px;
-    background-color: transparent !important; /* Forces transparency */
+    background-color: transparent !important;
     overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* THE WINGS: Stretched side-to-side */
-.wings-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 200px; /* Adjust this to make the bird taller or shorter */
-    z-index: 10;
+.overlay-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
-.header-logo-stretched {
+/* Forces the Banner to stretch side-to-side */
+.top-banner {
+    width: 100%;
+    height: 150px; /* Adjust height based on your banner's look */
+    background: #000;
+    border-bottom: 3px solid #043F98;
+    overflow: hidden;
+}
+
+.stretched-banner {
     width: 100%;
     height: 100%;
-    object-fit: fill; /* This FORCES the stretch from edge to edge */
-    filter: drop-shadow(0 0 20px #043F98);
+    object-fit: cover; /* This makes the wings reach the edges */
+    filter: drop-shadow(0 0 15px #043F98);
 }
 
-.main-layout {
+.middle-section {
     display: flex;
-    width: 1920px;
-    height: 1080px;
-}
-
-.gameplay-area {
-    flex: 3.5;
-    background: transparent !important; /* Ensures no white box */
-}
-
-.chat-sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.8);
-    border-left: 2px solid #043F98;
-    margin-top: 180px; /* Lowered so it doesn't overlap the wings */
-    z-index: 5;
+    background: transparent;
 }
 
-.bottom-bar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.gameplay-viewport {
+    flex: 3.5; /* Game takes up most of the width */
+    background: transparent;
+}
+
+.chat-container {
+    flex: 1; /* Chat sidebar width */
+    background: rgba(0, 0, 0, 0.85);
+    border-left: 2px solid #043F98;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    background: #043F98;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.bottom-ticker {
     height: 50px;
     background: #000;
     border-top: 2px solid #043F98;
-    z-index: 10;
+    color: #043F98;
+    line-height: 50px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #043F98;
 }
