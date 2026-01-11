@@ -1,24 +1,63 @@
-body {
-    background-color: #0d1117; /* GitHub's dark mode background */
-    color: white;
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 1920px; /* Standard Stream Resolution */
+    height: 1080px;
+    background-color: transparent; /* Makes the middle see-through in OBS */
+    overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
+}
+
+.overlay-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header styling with the Blue Flame gradient */
+.top-banner {
+    height: 150px;
+    background: linear-gradient(to bottom, #043F98 0%, rgba(0,0,0,0.8) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    border-bottom: 3px solid #043F98;
+    box-shadow: 0 5px 15px rgba(4, 63, 152, 0.5);
 }
 
-.overlay-container {
-    text-align: center;
-    border: 2px solid #043F98; /* Your specific blue flame color */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(4, 63, 152, 0.5); /* Glowing blue effect */
+.header-logo {
+    height: 120px;
+    /* Adds a white glow to the Phoenix outline to make it pop */
+    filter: drop-shadow(0 0 10px #ffffff);
 }
 
-h1 {
+/* Gameplay area - The transparent middle section */
+.gameplay-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.viewport-border {
+    width: 95%; 
+    height: 85%;
+    /* Subtle blue frame around your console gameplay */
+    border: 2px solid rgba(4, 63, 152, 0.4);
+    pointer-events: none; 
+}
+
+/* Footer styling for the Console Streaming text */
+.bottom-bar {
+    height: 50px;
+    background: rgba(0, 0, 0, 0.9);
     color: #043F98;
-    text-shadow: 0 0 10px rgba(4, 63, 152, 0.8);
-    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    letter-spacing: 3px;
+    border-top: 2px solid #043F98;
+    text-shadow: 0 0 5px #043F98;
 }
