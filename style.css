@@ -8,73 +8,51 @@ body, html {
     font-family: 'Segoe UI', sans-serif;
 }
 
-.overlay-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+/* THE WINGS: This stretches them across the very top */
+.wings-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Force 100% screen width */
+    height: 150px; /* Adjust height based on how thick you want the wings */
+    z-index: 10;
+    pointer-events: none; /* Allows you to click 'through' the wings in OBS */
 }
 
-/* THIN HEADER: Stays out of the way of the stream */
-.top-banner {
-    height: 80px; 
-    background: rgba(0, 0, 0, 0.9);
-    border-bottom: 2px solid #043F98;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 5px 15px rgba(4, 63, 152, 0.4);
-}
-
-.logo-container {
+.header-logo-stretched {
     width: 100%;
     height: 100%;
+    /* This 'fills' the width but keeps the bird centered */
+    object-fit: cover; 
+    filter: drop-shadow(0 0 20px #043F98);
+}
+
+/* MIDDLE AREA: Transparent for your console gameplay */
+.main-layout {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 1920px;
+    height: 1080px;
 }
 
-/* STRETCHED LOGO: Spreads the wings across the top bar */
-.header-logo-stretched {
-    width: 95%; /* Makes it spread across the top */
-    height: 70px; /* Forces it to stay within the thin bar */
-    object-fit: contain; /* Keeps it from looking distorted */
-    filter: drop-shadow(0 0 10px #043F98);
-}
-
-.middle-container {
-    display: flex;
-    flex: 1; /* Takes up the remaining 1080p space */
-}
-
-/* The Stream Area */
 .gameplay-area {
-    flex: 3.5; 
+    flex: 3.5;
     background: transparent;
 }
 
-/* Chat stays on the side */
+/* CHAT: Pushed to the side so it doesn't block the center */
 .chat-sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     border-left: 2px solid #043F98;
+    margin-top: 150px; /* Starts below the wing height */
 }
 
-/* Footer Ticker */
+/* TICKER: Stays at the bottom */
 .bottom-bar {
-    height: 40px;
-    background: #000;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.9);
     border-top: 2px solid #043F98;
-    overflow: hidden;
-}
-
-.ticker {
-    line-height: 40px;
-    animation: ticker 25s linear infinite;
-    white-space: nowrap;
-    color: white;
-}
-
-@keyframes ticker {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
 }
