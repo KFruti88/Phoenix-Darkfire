@@ -3,31 +3,28 @@ body, html {
     padding: 0;
     width: 1920px;
     height: 1080px;
-    background-color: transparent;
+    background-color: transparent !important; /* Forces transparency */
     overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* THE WINGS: This stretches them across the very top */
+/* THE WINGS: Stretched side-to-side */
 .wings-header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw; /* Force 100% screen width */
-    height: 150px; /* Adjust height based on how thick you want the wings */
+    width: 100%; 
+    height: 200px; /* Adjust this to make the bird taller or shorter */
     z-index: 10;
-    pointer-events: none; /* Allows you to click 'through' the wings in OBS */
 }
 
 .header-logo-stretched {
     width: 100%;
     height: 100%;
-    /* This 'fills' the width but keeps the bird centered */
-    object-fit: cover; 
+    object-fit: fill; /* This FORCES the stretch from edge to edge */
     filter: drop-shadow(0 0 20px #043F98);
 }
 
-/* MIDDLE AREA: Transparent for your console gameplay */
 .main-layout {
     display: flex;
     width: 1920px;
@@ -36,23 +33,23 @@ body, html {
 
 .gameplay-area {
     flex: 3.5;
-    background: transparent;
+    background: transparent !important; /* Ensures no white box */
 }
 
-/* CHAT: Pushed to the side so it doesn't block the center */
 .chat-sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     border-left: 2px solid #043F98;
-    margin-top: 150px; /* Starts below the wing height */
+    margin-top: 180px; /* Lowered so it doesn't overlap the wings */
+    z-index: 5;
 }
 
-/* TICKER: Stays at the bottom */
 .bottom-bar {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 50px;
-    background: rgba(0, 0, 0, 0.9);
+    background: #000;
     border-top: 2px solid #043F98;
+    z-index: 10;
 }
