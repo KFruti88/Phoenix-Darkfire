@@ -3,8 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix Darkfire Overlay</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Phoenix Darkfire Full Overlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* --- CORE LAYOUT --- */
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            overflow: hidden; background: transparent; 
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .overlay-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- TOP BANNER --- */
+        .top-banner {
+            height: 80px;
+            width: 100%;
+            background: #000;
+            overflow: hidden;
+            border-bottom: 3px solid #043F98;
+            z-index: 10;
+        }
+        .stretched-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: hue-rotate(190deg) brightness(1.2); 
+        }
+
+        /* --- MIDDLE SECTION --- */
+        .middle-section {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .gameplay-viewport {
+            flex: 1;
+            background: transparent; 
+            position: relative;
+        }
+
+        /* --- BOTTOM TICKER --- */
+        .bottom-ticker {
+            height: 40px;
+            background: #000;
+            border-top: 3px solid #043F98;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        marquee { font-size: 16px; font-weight: bold; }
+
+        /* --- PHOENIX ALERT (LOCKED SPECS) --- */
+        #phoenix-beast {
+            position: absolute;
+            width: 500px; height: 500px;
+            top: 50%; left: -800px; 
+            z-index: 150;
+            will-change: transform;
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(185deg) saturate(10) drop-shadow(0 0 50px #0055ff);
+            opacity: 0;
+        }
+        #phoenix-img { width: 100%; height: 100%; object-fit: contain; }
+
+        #alert-box {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+
+        .name-banner {
+            font-size: 90px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            background: linear-gradient(to bottom, #00d4ff 0%, #0055ff 60%, #001a33 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.7));
+        }
+
+        .ignite { animation: combustion 2.8s ease-out forwards; }
+        @keyframes combustion {
+            0% { filter: grayscale(100%) sepia(1) hue-rotate(185deg) saturate(10) brightness(1); transform: scale(1); opacity: 1; }
+            40% { filter: grayscale(100%) sepia(1) hue-rotate(185deg) saturate(10) brightness(40) blur(12px); transform: scale(7); opacity: 1; }
+            100% { filter: brightness(0) blur(80px); transform: scale(0); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,17 +111,13 @@
 
         <div class="middle-section">
             <main class="gameplay-viewport">
-                </main>
-
-            <aside class="chat-container">
-                <div class="chat-header">LIVE CHAT</div>
-                <iframe 
-                    src="https://www.twitch.tv/embed/phoenix_darkfire/chat?parent=kfruti88.github.io&darkpopout=true"
-                    height="100%"
-                    width="100%"
-                    frameborder="0">
-                </iframe>
-            </aside>
+                <div id="phoenix-beast">
+                    <img id="phoenix-img" src="Banner.png">
+                </div>
+                <div id="alert-box">
+                    <div class="name-banner" id="follower-name"></div>
+                </div>
+            </main>
         </div>
 
         <footer class="bottom-ticker">
@@ -35,5 +127,42 @@
         </footer>
     </div>
 
+    <script>
+        const beast = document.getElementById('phoenix-beast');
+        const alertBox = document.getElementById('alert-box');
+        const nameField = document.getElementById('follower-name');
+
+        function triggerFollower(name) {
+            beast.classList.remove('ignite');
+            beast.style.opacity = "1";
+            beast.style.left = "50%";
+            beast.style.transform = "translate(-50%, -50%) scale(2.8)";
+
+            setTimeout(() => {
+                beast.classList.add('ignite');
+                setTimeout(() => {
+                    alertBox.style.display = "block";
+                    nameField.innerHTML = `NEW FOLLOWER<br>${name}`;
+                    nameField.classList.add('animate__animated', 'animate__zoomIn');
+                }, 600);
+
+                setTimeout(() => {
+                    beast.style.opacity = "0";
+                    beast.style.left = "-800px";
+                    alertBox.style.display = "none";
+                    nameField.classList.remove('animate__animated', 'animate__zoomIn');
+                }, 9000);
+            }, 1600);
+        }
+
+        window.addEventListener('onEventReceived', function (obj) {
+            if (obj.detail.listener === 'follower-latest') {
+                triggerFollower(obj.detail.event.name);
+            }
+        });
+
+        // Test Trigger on load
+        setTimeout(() => { triggerFollower("PHOENIX_DARKFIRE"); }, 2000);
+    </script>
 </body>
 </html>
