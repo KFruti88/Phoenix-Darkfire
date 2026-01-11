@@ -14,8 +14,9 @@ body, html {
     height: 100%;
 }
 
+/* Updated Header for Wide Logo */
 .top-banner {
-    height: 120px;
+    height: 180px; /* Slightly taller to accommodate the wingspan */
     background: linear-gradient(to bottom, #043F98 0%, #000 100%);
     display: flex;
     justify-content: center;
@@ -23,16 +24,27 @@ body, html {
     border-bottom: 3px solid #043F98;
 }
 
-.header-logo { 
-    height: 100px; 
-    filter: drop-shadow(0 0 10px #043F98); 
+.logo-container {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo-stretched {
+    width: 100%;       /* Spreads it across the container */
+    max-width: 1400px; /* Limits the stretch so it doesn't get too thin */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px #043F98);
 }
 
 /* Middle Layout: Gameplay on Left, Chat on Right */
 .middle-container {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
+    flex: 1; /* Fills remaining space between header and footer */
+    background: transparent;
 }
 
 .gameplay-area {
@@ -87,7 +99,7 @@ body, html {
     display: inline-block;
     white-space: nowrap;
     animation: ticker 30s linear infinite;
-    color: #ffffff; /* White text for readability */
+    color: #ffffff; 
     font-size: 1.2rem;
     line-height: 60px;
 }
@@ -95,7 +107,13 @@ body, html {
 .ticker-item {
     margin-right: 80px;
     font-weight: bold;
-    text-shadow: 0 0 8px #043F98; /* Blue glow on white text */
+}
+
+/* Ticker highlight glow */
+.glow {
+    color: #043F98;
+    text-shadow: 0 0 10px #043F98, 0 0 20px #043F98;
+    font-weight: 800;
 }
 
 @keyframes ticker {
