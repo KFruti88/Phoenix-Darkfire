@@ -3,96 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix Darkfire - Pure Blue Protocol</title>
+    <title>Phoenix Darkfire - Wing Protocol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            overflow: hidden; background: transparent; 
-            font-family: 'Arial Black', sans-serif;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; font-family: 'Arial Black', sans-serif; }
+        .overlay-wrapper { display: flex; flex-direction: column; height: 100vh; width: 100vw; }
 
-        .overlay-wrapper {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* --- TOP BANNER (FORCED BLUE) --- */
+        /* --- TOP BANNER (Wing Focus) --- */
         .top-banner {
-            height: 80px;
+            height: 12vh; /* Slightly taller to show wings better */
             width: 100%;
             background: #000;
+            position: relative;
             overflow: hidden;
-            border-bottom: 4px solid #0055ff;
+            border-bottom: 0.4vh solid #0055ff;
             z-index: 10;
         }
+
         .stretched-banner {
             width: 100%;
-            height: 100%;
+            height: 180%; /* Scaled up to hide tail */
             object-fit: cover;
-            /* Aggressive filter: Grayscale -> Blue Tint */
-            filter: grayscale(100%) brightness(0.7) sepia(1) hue-rotate(190deg) saturate(20);
+            object-position: center 20%; /* Pushes image UP to hide tail/show wings */
+            filter: grayscale(100%) brightness(0.6) sepia(1) hue-rotate(190deg) saturate(15);
+            opacity: 0.8;
         }
 
-        .middle-section {
-            flex: 1;
-            position: relative;
-            background: transparent;
+        /* --- WING TEXT --- */
+        .wing-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.5vh;
+            color: #00d4ff;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px #0055ff, 0 0 30px #0055ff;
+            letter-spacing: 0.5vw;
+            z-index: 11;
+            pointer-events: none;
         }
+        .left-wing { left: 10vw; }
+        .right-wing { right: 10vw; }
 
-        /* --- BOTTOM TICKER (LOCKED AT BOTTOM) --- */
+        .middle-section { flex: 1; position: relative; background: transparent; }
+
+        /* --- BOTTOM TICKER --- */
         .bottom-ticker {
-            height: 45px;
+            height: 5vh;
             background: #000;
-            border-top: 4px solid #0055ff;
+            border-top: 0.4vh solid #0055ff;
             color: #00d4ff;
             display: flex;
             align-items: center;
             z-index: 10;
-            overflow: hidden;
         }
+        marquee { font-size: 2.2vh; font-weight: bold; }
 
-        /* --- PHOENIX ALERT (LOCKED PURE BLUE) --- */
+        /* --- PHOENIX ALERT (LOCKED BLUE) --- */
         #phoenix-beast {
             position: absolute;
-            width: 550px; height: 550px;
-            top: 50%; left: -900px; 
+            width: 30vw; max-width: 600px; aspect-ratio: 1/1;
+            top: 50%; left: -100vw;
             z-index: 150;
-            will-change: transform;
             transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(185deg) saturate(15) drop-shadow(0 0 50px #0055ff);
+            filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(185deg) saturate(15) drop-shadow(0 0 5vw #0055ff);
             opacity: 0;
         }
         #phoenix-img { width: 100%; height: 100%; object-fit: contain; }
 
         #alert-box {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            display: none;
-            z-index: 200;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; display: none; z-index: 200; width: 90vw;
         }
-
         .name-banner {
-            font-size: 95px;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1.0;
+            font-size: 8vw; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(to bottom, #00d4ff 0%, #0055ff 50%, #001a33 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(0, 85, 255, 0.8));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 2vw rgba(0, 85, 255, 0.8));
         }
 
-        /* BLUE COMBUSTION ANIMATION */
         .ignite { animation: blueFire 2.8s ease-out forwards; }
         @keyframes blueFire {
             0% { filter: grayscale(100%) sepia(1) hue-rotate(185deg) saturate(15) brightness(1); transform: scale(1); opacity: 1; }
-            40% { filter: grayscale(100%) sepia(1) hue-rotate(185deg) saturate(20) brightness(40) blur(15px); transform: scale(8); opacity: 1; }
-            100% { filter: brightness(0) blur(80px); transform: scale(0); opacity: 0; }
+            40% { filter: grayscale(100%) sepia(1) hue-rotate(185deg) saturate(20) brightness(40) blur(2vh); transform: scale(3.5); opacity: 1; }
+            100% { filter: brightness(0) blur(5vh); transform: scale(0); opacity: 0; }
         }
     </style>
 </head>
@@ -100,7 +94,9 @@
 
     <div class="overlay-wrapper">
         <header class="top-banner">
-            <img src="https://raw.githubusercontent.com/KFruti88/Phoenix-Darkfire/main/Banner.png" alt="Banner" class="stretched-banner">
+            <div class="wing-text left-wing">Phoenix</div>
+            <img src="https://raw.githubusercontent.com/KFruti88/Phoenix-Darkfire/main/Banner.png" class="stretched-banner">
+            <div class="wing-text right-wing">Darkfire</div>
         </header>
 
         <div class="middle-section">
@@ -113,9 +109,7 @@
         </div>
 
         <footer class="bottom-ticker">
-            <div id="dynamic-marquee" style="white-space: nowrap; width: 100%; font-size: 18px; font-weight: bold; letter-spacing: 2px;">
-                PHOENIX_DARKFIRE // PHASE: ACTIVE // #0055FF BLUE FLAME PROTOCOL // WAITING FOR DATA...
-            </div>
+            <div id="dynamic-marquee" style="white-space: nowrap; width: 100%;"></div>
         </footer>
     </div>
 
@@ -125,28 +119,18 @@
         const nameField = document.getElementById('follower-name');
         const ticker = document.getElementById('dynamic-marquee');
 
-        let latestFollower = "None";
-        let latestSub = "None";
-        let latestGifter = "None";
+        let latestFollower = "None"; let latestSub = "None"; let latestGifter = "None";
 
         function updateTicker() {
             ticker.innerHTML = `<marquee scrollamount="8">
-                PHOENIX_DARKFIRE // 
-                LATEST FOLLOWER: <span style="color: #fff;">${latestFollower}</span> // 
-                LATEST SUB: <span style="color: #fff;">${latestSub}</span> // 
-                LATEST GIFTER: <span style="color: #fff;">${latestGifter}</span> // 
-                BLUE FLAME PROTOCOL ACTIVE
+                PHOENIX_DARKFIRE // LATEST FOLLOWER: <span style="color: #fff;">${latestFollower}</span> // LATEST SUB: <span style="color: #fff;">${latestSub}</span> // LATEST GIFTER: <span style="color: #fff;">${latestGifter}</span> // BLUE FLAME PROTOCOL ACTIVE
             </marquee>`;
         }
 
         function triggerFollower(name) {
-            latestFollower = name; 
-            updateTicker();
+            latestFollower = name; updateTicker();
             beast.classList.remove('ignite');
-            beast.style.opacity = "1";
-            beast.style.left = "50%";
-            beast.style.transform = "translate(-50%, -50%) scale(3)";
-
+            beast.style.opacity = "1"; beast.style.left = "50%"; beast.style.transform = "translate(-50%, -50%) scale(1.5)";
             setTimeout(() => {
                 beast.classList.add('ignite');
                 setTimeout(() => {
@@ -155,25 +139,17 @@
                     nameField.classList.add('animate__animated', 'animate__zoomIn');
                 }, 600);
                 setTimeout(() => {
-                    beast.style.opacity = "0";
-                    beast.style.left = "-900px";
-                    alertBox.style.display = "none";
-                    nameField.classList.remove('animate__animated', 'animate__zoomIn');
+                    beast.style.opacity = "0"; beast.style.left = "-100vw"; alertBox.style.display = "none";
                 }, 9000);
             }, 1600);
         }
 
         window.addEventListener('onEventReceived', function (obj) {
-            if (!obj.detail.event) return;
-            const event = obj.detail.event;
-            const listener = obj.detail.listener;
-            if (listener === 'follower-latest') {
-                triggerFollower(event.name);
-            } else if (listener === 'subscriber-latest') {
-                latestSub = event.name; updateTicker();
-            } else if (listener === 'gift-latest') {
-                latestGifter = event.name; updateTicker();
-            }
+            const sk = obj.detail.listener; const ev = obj.detail.event;
+            if (!ev) return;
+            if (sk === 'follower-latest') triggerFollower(ev.name);
+            if (sk === 'subscriber-latest') { latestSub = ev.name; updateTicker(); }
+            if (sk === 'gift-latest') { latestGifter = ev.name; updateTicker(); }
         });
 
         updateTicker();
